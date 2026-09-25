@@ -1,0 +1,642 @@
+/* =========================================================
+   LIVE ROUTE MAP
+========================================================= */
+
+.live-map-card {
+  margin-top: 24px;
+
+  background: white;
+
+  border: 1px solid #e3ebe6;
+
+  border-radius: 14px;
+
+  padding: 18px;
+
+  box-shadow:
+    0 5px 18px rgba(32, 60, 43, 0.045);
+}
+
+.live-map-header {
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  margin-bottom: 14px;
+}
+
+.live-map-title {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 4px;
+}
+
+.live-map-title span {
+  color: #9aa49d;
+
+  font-size: 7px;
+
+  font-weight: 800;
+
+  letter-spacing: 0.7px;
+
+  text-transform: uppercase;
+}
+
+.live-map-title strong {
+  color: #26372d;
+
+  font-size: 12px;
+}
+
+.live-map-live {
+  display: flex;
+
+  align-items: center;
+
+  gap: 6px;
+
+  padding: 6px 9px;
+
+  border-radius: 20px;
+
+  background: #eaf7ee;
+
+  border: 1px solid #d5eadb;
+
+  color: #287b48;
+
+  font-size: 7px;
+
+  font-weight: 800;
+
+  text-transform: uppercase;
+}
+
+.live-map-live::before {
+  content: "";
+
+  width: 6px;
+
+  height: 6px;
+
+  border-radius: 50%;
+
+  background: #27a653;
+
+  box-shadow:
+    0 0 0 3px rgba(39, 166, 83, 0.12);
+
+  animation: mapPulse 1.6s infinite;
+}
+
+@keyframes mapPulse {
+  0% {
+    box-shadow:
+      0 0 0 0 rgba(39, 166, 83, 0.22);
+  }
+
+  70% {
+    box-shadow:
+      0 0 0 6px rgba(39, 166, 83, 0);
+  }
+
+  100% {
+    box-shadow:
+      0 0 0 0 rgba(39, 166, 83, 0);
+  }
+}
+
+
+/* MAP CANVAS */
+
+.map-canvas {
+  height: 285px;
+
+  position: relative;
+
+  overflow: hidden;
+
+  border-radius: 12px;
+
+  border: 1px solid #dfe8e2;
+
+  background:
+    linear-gradient(
+      135deg,
+      #edf3ee 0%,
+      #f6f8f6 50%,
+      #eaf1ec 100%
+    );
+}
+
+
+/* MAP GRID */
+
+.map-grid {
+  position: absolute;
+
+  inset: 0;
+
+  opacity: 0.55;
+
+  background-image:
+    linear-gradient(
+      rgba(135, 157, 143, 0.13) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      rgba(135, 157, 143, 0.13) 1px,
+      transparent 1px
+    );
+
+  background-size: 38px 38px;
+}
+
+
+/* ROADS */
+
+.map-road {
+  position: absolute;
+
+  background: rgba(255, 255, 255, 0.92);
+
+  border: 1px solid rgba(205, 216, 208, 0.8);
+
+  border-radius: 30px;
+
+  box-shadow:
+    0 1px 2px rgba(40, 60, 45, 0.04);
+}
+
+.map-road-one {
+  width: 120%;
+
+  height: 30px;
+
+  left: -10%;
+
+  top: 43%;
+
+  transform: rotate(-12deg);
+}
+
+.map-road-two {
+  width: 30px;
+
+  height: 125%;
+
+  left: 47%;
+
+  top: -12%;
+
+  transform: rotate(8deg);
+}
+
+.map-road-three {
+  width: 105%;
+
+  height: 22px;
+
+  left: -3%;
+
+  top: 67%;
+
+  transform: rotate(24deg);
+}
+
+.map-road-four {
+  width: 24px;
+
+  height: 110%;
+
+  left: 73%;
+
+  top: -5%;
+
+  transform: rotate(25deg);
+}
+
+
+/* ROUTE SHADOW */
+
+.map-route-shadow {
+  position: absolute;
+
+  left: 13%;
+
+  top: 52%;
+
+  width: 74%;
+
+  height: 5px;
+
+  border-radius: 20px;
+
+  background: rgba(30, 120, 66, 0.12);
+
+  transform:
+    rotate(-13deg);
+
+  filter: blur(2px);
+}
+
+
+/* MAIN ROUTE */
+
+.map-route-line {
+  position: absolute;
+
+  left: 13%;
+
+  top: 50%;
+
+  width: 74%;
+
+  height: 5px;
+
+  border-radius: 20px;
+
+  background:
+    repeating-linear-gradient(
+      90deg,
+      #2a9b55 0,
+      #2a9b55 10px,
+      transparent 10px,
+      transparent 16px
+    );
+
+  transform:
+    rotate(-13deg);
+
+  z-index: 4;
+
+  transition:
+    width 2.8s linear;
+}
+
+
+/* PICKUP PIN */
+
+.map-pickup {
+  position: absolute;
+
+  left: 10%;
+
+  top: 43%;
+
+  z-index: 8;
+
+  width: 42px;
+
+  height: 42px;
+
+  border-radius: 50%;
+
+  background: white;
+
+  border: 3px solid #2a9b55;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  font-size: 17px;
+
+  box-shadow:
+    0 6px 15px rgba(32, 70, 43, 0.16);
+}
+
+.map-pickup::after {
+  content: "";
+
+  position: absolute;
+
+  width: 9px;
+
+  height: 9px;
+
+  bottom: -5px;
+
+  left: 50%;
+
+  transform: translateX(-50%) rotate(45deg);
+
+  background: white;
+
+  border-right: 2px solid #2a9b55;
+
+  border-bottom: 2px solid #2a9b55;
+}
+
+
+/* NGO PIN */
+
+.map-ngo {
+  position: absolute;
+
+  right: 10%;
+
+  top: 27%;
+
+  z-index: 8;
+
+  width: 42px;
+
+  height: 42px;
+
+  border-radius: 50%;
+
+  background: white;
+
+  border: 3px solid #176b3a;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  font-size: 17px;
+
+  box-shadow:
+    0 6px 15px rgba(32, 70, 43, 0.16);
+}
+
+.map-ngo::after {
+  content: "";
+
+  position: absolute;
+
+  width: 9px;
+
+  height: 9px;
+
+  bottom: -5px;
+
+  left: 50%;
+
+  transform: translateX(-50%) rotate(45deg);
+
+  background: white;
+
+  border-right: 2px solid #176b3a;
+
+  border-bottom: 2px solid #176b3a;
+}
+
+
+/* MOVING DRIVER */
+
+.map-driver {
+  position: absolute;
+
+  top: calc(50% - 22px);
+
+  left: 13%;
+
+  z-index: 12;
+
+  width: 44px;
+
+  height: 44px;
+
+  border-radius: 50%;
+
+  background:
+    linear-gradient(
+      135deg,
+      #176b3a,
+      #299457
+    );
+
+  border: 3px solid white;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  font-size: 20px;
+
+  box-shadow:
+    0 7px 18px rgba(23, 107, 58, 0.25);
+
+  transform:
+    translateX(-50%)
+    rotate(-13deg);
+
+  transition:
+    left 2.8s linear;
+}
+
+.map-driver::before {
+  content: "";
+
+  position: absolute;
+
+  inset: -7px;
+
+  border-radius: 50%;
+
+  border: 2px solid rgba(42, 155, 85, 0.25);
+
+  animation: driverPulse 1.8s infinite;
+}
+
+@keyframes driverPulse {
+  0% {
+    transform: scale(0.9);
+
+    opacity: 0.8;
+  }
+
+  70% {
+    transform: scale(1.25);
+
+    opacity: 0;
+  }
+
+  100% {
+    transform: scale(1.25);
+
+    opacity: 0;
+  }
+}
+
+
+/* MAP LABELS */
+
+.map-label {
+  position: absolute;
+
+  z-index: 10;
+
+  padding: 6px 8px;
+
+  background: rgba(255, 255, 255, 0.94);
+
+  border: 1px solid #dfe8e2;
+
+  border-radius: 6px;
+
+  box-shadow:
+    0 3px 10px rgba(32, 60, 43, 0.07);
+
+  color: #536158;
+
+  font-size: 7px;
+
+  font-weight: 800;
+
+  white-space: nowrap;
+}
+
+.map-pickup-label {
+  left: 5%;
+
+  top: 25%;
+}
+
+.map-ngo-label {
+  right: 4%;
+
+  top: 12%;
+}
+
+
+/* ROUTE INFO */
+
+.live-map-info {
+  display: grid;
+
+  grid-template-columns:
+    1fr auto 1fr;
+
+  align-items: center;
+
+  gap: 10px;
+
+  margin-top: 13px;
+}
+
+.live-map-info-box {
+  padding: 10px 12px;
+
+  border-radius: 8px;
+
+  background: #f7faf8;
+
+  border: 1px solid #e5ebe7;
+}
+
+.live-map-info-box span {
+  display: block;
+
+  margin-bottom: 4px;
+
+  color: #9aa49d;
+
+  font-size: 6px;
+
+  font-weight: 800;
+
+  text-transform: uppercase;
+}
+
+.live-map-info-box strong {
+  display: block;
+
+  color: #405047;
+
+  font-size: 8px;
+}
+
+.live-map-arrow {
+  width: 28px;
+
+  height: 28px;
+
+  border-radius: 50%;
+
+  background: #eaf7ee;
+
+  color: #218449;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  font-size: 12px;
+
+  font-weight: 900;
+}
+
+
+/* MVP DISCLAIMER */
+
+.map-disclaimer {
+  margin-top: 10px;
+
+  text-align: center;
+
+  color: #9aa49d;
+
+  font-size: 7px;
+
+  line-height: 1.5;
+}
+
+
+/* =========================================================
+   MAP RESPONSIVE
+========================================================= */
+
+@media (max-width: 650px) {
+
+  .map-canvas {
+    height: 235px;
+  }
+
+  .live-map-info {
+    grid-template-columns: 1fr;
+  }
+
+  .live-map-arrow {
+    margin: 0 auto;
+
+    transform: rotate(90deg);
+  }
+
+  .map-pickup-label,
+  .map-ngo-label {
+    font-size: 6px;
+  }
+
+  .map-driver {
+    width: 39px;
+
+    height: 39px;
+
+    font-size: 17px;
+  }
+
+  .map-pickup,
+  .map-ngo {
+    width: 37px;
+
+    height: 37px;
+
+    font-size: 15px;
+  }
+}
